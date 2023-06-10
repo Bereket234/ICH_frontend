@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.active{
+  color: lightblue;
+}
+.image-drop{
+  width: 700px;
+  height: 700px;
+  cursor: pointer; 
+  font-size: 20px; 
+  background-color: red;
+  border-radius: 50%;
+  
+}
+a:hover{
+  color: lightblue;
+}

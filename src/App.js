@@ -1,25 +1,81 @@
-import logo from './logo.svg';
+import { 
+  BrowserRouter,
+  createBrowserRouter, 
+  createRoutesFromElements, 
+  Navigate, 
+  Route, 
+  RouterProvider, 
+  Routes
+} from 'react-router-dom'
+
 import './App.css';
 
+// custom imports
+
+//layouts
+import RootLayout from './layouts/RootLayout';
+import DashboardLayout from './layouts/DashboardLayout';
+
+//pages
+import Error from './pages/Error';
+import ImageUpload from './pages/ImageUpload';
+import LandingPage from './pages/Landing';
+import Dashboard from './pages/Dashboard';
+import RegisterPatient from './pages/RegisterPatient';
+import About from './pages/About';
+import PreviousScans from './pages/PreviousScans';
+import ImageResult from './pages/ImageRessult';
+import Register from './pages/Register'
+import Login from './pages/login';
+import PatientList from './pages/PatientList';
+
+//action imports
+// import { registerUser } from './pages/Register';
+import { addPatient } from './services/patientService';
+
+//hook import
+import { useAuthContext } from './hooks/useAuthContext';
+import UploadDicomImage from './pages/UploadDicomImage';
+
+
+// const Routee= () => {
+//   return(
+    
+//   )
+// }
+// // router and routes
+// const router = createBrowserRouter(
+//   createRoutesFromElements(
+//     <Routee/>
+//   )
+// )
+
 function App() {
+
+  const {user} = useAuthContext()
+  console.log("hete", user)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<RootLayout />} errorElement={<Error/>}>
+          <Route index element= {<LandingPage/>}/>
+          <Route path='about' element= {<About/>}/>
+          <Route path="login" element={user == null? <Login />: <Navigate to='/dashboard'/>}/>
+          <Route path="register" element={!user? <Register />: <Navigate to='/dashboard'/>} />
+          
+          <Route path= 'dashboard' element = {user? <DashboardLayout />: <Navigate to='/login'/>}>
+            <Route index element= {user?  <Dashboard/>: <Navigate to='/login'/> } />
+            <Route path="upload-dicom" element={user? <UploadDicomImage/>: <Navigate to='/login'/>} />
+            <Route path="upload-png" element={user? <ImageUpload/>: <Navigate to='/login'/>} />
+            <Route path="register-patient" element={user? <RegisterPatient/>: <Navigate to='/login'/>} />
+            <Route path="previous-scans" element={user? <PreviousScans/>: <Navigate to='/login'/>} />
+            <Route path="patient-list" element={user? <PatientList/>: <Navigate to='/login'/>} />
+            <Route path="result" element={user?<ImageResult />: <Navigate to='/login'/>} />
+          </Route>
+        </Route>
+      </Routes>
+      </BrowserRouter>
+  )
 }
 
-export default App;
+export default App
