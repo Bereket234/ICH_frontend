@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
-import { Box, Button, Container, Flex, Heading, Image, Text, background } from '@chakra-ui/react';
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
-import { useImagesContext } from '../hooks/useImageContext';
+import { Box, Button, Container, Flex, Heading, Image, Text,FormControl, FormLabel, Select, } from '@chakra-ui/react';
 import { useDicomImage } from '../hooks/useDicomImage';
 
 const UploadDicomImage = () => {
   const {uploadImage, isLoading, error}= useDicomImage()
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
-  const {image}= useImagesContext()
-  const navigate= useNavigate()
+  const [patient, setPatient]= useState('')
+
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -34,10 +31,10 @@ const UploadDicomImage = () => {
     // formData.append('image', selectedImage);
     const formData = new FormData();
     formData.append('image', selectedImage);
-    formData.append('patient', 2)
+    formData.append('patient', patient)
+    console.log(formData)
     await uploadImage(formData)
     
-    // You can make an API call here to send the image to the server for processing
   };
 
   return (
@@ -46,7 +43,15 @@ const UploadDicomImage = () => {
         <Heading as="h1" mb={5} textAlign="center">
           Image Upload
         </Heading>
-        
+        <FormControl mb={4}>
+          <FormLabel fontSize={18} color='blue.600' fontWeight='700'>Patient</FormLabel>
+            <Select placeholder='Select' required name="patinet" value={patient} onChange={e => setPatient(e.target.value) }>
+                
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </Select>
+          </FormControl>
         <Flex
           borderWidth="2px"
           borderRadius="lg"
@@ -94,6 +99,7 @@ const UploadDicomImage = () => {
               
             </>
           )}
+        {error && <Text mt= "10" color='red.400' fontSize='13'>{error}</Text>}
         </Flex>
         <Button
           mt={4}

@@ -1,14 +1,11 @@
-import {Avatar, Button, Flex, Heading, HStack, Spacer, Wrap, WrapItem, Text, Box} from '@chakra-ui/react'
-import { useEffect, useState } from 'react';
+import {Avatar, Button, Flex, Heading, HStack, Spacer, Wrap, WrapItem, Text} from '@chakra-ui/react'
+// import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 
 function Navbar() {
-    const [token, setToken] = useState(null)
-    useEffect(()=> {
-        const t= localStorage.getItem('token')
-        setToken(t)
-    }, [token])
+    const {user}= useAuthContext()
     return (
         <Flex w= '100%' position='fixed' zIndex='10' bg='white' as="nav" px="100px" h= '10vh' alignItems="center"> 
             <NavLink to= "/">
@@ -19,7 +16,10 @@ function Navbar() {
 
             <HStack spacing="20px">
                 <NavLink to='/'>Home</NavLink>
-                {token!= null ?
+                <NavLink to= '/about'>
+                    About
+                </NavLink>
+                {user ?
                     (<Wrap>
                         <WrapItem>
                             <NavLink to="/dashboard">
@@ -31,9 +31,7 @@ function Navbar() {
                         </WrapItem>
                     </Wrap>):
                     <Flex gap= "10px" alignItems='center'>
-                    <NavLink to= '/about'>
-                        About
-                    </NavLink>
+                    
                     <NavLink to= '/login'>
                         Login
                     </NavLink>

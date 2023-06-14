@@ -1,16 +1,11 @@
 import { 
   BrowserRouter,
-  createBrowserRouter, 
-  createRoutesFromElements, 
   Navigate, 
   Route, 
-  RouterProvider, 
   Routes
 } from 'react-router-dom'
 
 import './App.css';
-
-// custom imports
 
 //layouts
 import RootLayout from './layouts/RootLayout';
@@ -29,30 +24,18 @@ import Register from './pages/Register'
 import Login from './pages/login';
 import PatientList from './pages/PatientList';
 
-//action imports
-// import { registerUser } from './pages/Register';
-import { addPatient } from './services/patientService';
 
 //hook import
 import { useAuthContext } from './hooks/useAuthContext';
 import UploadDicomImage from './pages/UploadDicomImage';
+import Bookmaks from './pages/Bookmaks';
+import { useImagesContext } from './hooks/useImageContext';
 
-
-// const Routee= () => {
-//   return(
-    
-//   )
-// }
-// // router and routes
-// const router = createBrowserRouter(
-//   createRoutesFromElements(
-//     <Routee/>
-//   )
-// )
 
 function App() {
 
   const {user} = useAuthContext()
+  const {image} = useImagesContext()
   console.log("hete", user)
   return (
       <BrowserRouter>
@@ -70,7 +53,8 @@ function App() {
             <Route path="register-patient" element={user? <RegisterPatient/>: <Navigate to='/login'/>} />
             <Route path="previous-scans" element={user? <PreviousScans/>: <Navigate to='/login'/>} />
             <Route path="patient-list" element={user? <PatientList/>: <Navigate to='/login'/>} />
-            <Route path="result" element={user?<ImageResult />: <Navigate to='/login'/>} />
+            <Route path="result" element={user && image?<ImageResult />: <Navigate to='/login'/>} />
+            <Route path="bookmarks" element={user?<Bookmaks />: <Navigate to='/login'/>} />
           </Route>
         </Route>
       </Routes>

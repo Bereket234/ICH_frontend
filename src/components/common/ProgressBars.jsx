@@ -1,5 +1,5 @@
 import React from 'react';
-import { Progress, Heading, Box, Text } from "@chakra-ui/react";
+import { Progress, Box, Text } from "@chakra-ui/react";
 
 
 

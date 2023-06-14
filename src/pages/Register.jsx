@@ -1,11 +1,10 @@
-import { useState } from "react";
-import { FormErrorMessage, Box, Button, VStack, FormControl, FormHelperText, FormLabel, Input, Stack, Text } from "@chakra-ui/react";
-import { Form, NavLink, redirect, Navigate } from "react-router-dom";
+import { Box, Button, VStack, Text } from "@chakra-ui/react";
+import { NavLink} from "react-router-dom";
 import InputField from "../components/common/InputField";
 import * as Yup from 'yup'
-import { Formik, Field } from "formik";
+import { Formik } from "formik";
 import { useSignup } from "../hooks/useSignup";
-// import { auth } from "../services/authService";
+
 
 const Login = () => {
   const {signup, error, isLoading} = useSignup()
@@ -13,13 +12,11 @@ const Login = () => {
   const handleSubmit = async (values, actions) => {
     console.log(values)
     const res= await signup(values)
-    // console.log(res)
     if (res){
       actions.resetForm();
       window.location='/dashboard' 
     }
       
-    // firstName,lastName,password,email
   }
   return (
     <Formik
@@ -59,7 +56,7 @@ const Login = () => {
                 type="password"
                 placeholder="enter password"
               />
-               <Button type="submit" colorScheme="blue" width='60%'>Sign up</Button>
+               <Button isLoading= {isLoading} type="submit" colorScheme="blue" width='60%'>Sign up</Button>
             </VStack>
             {error && <Text color='red.400'>{error} </Text>}
         <NavLink to='/login'>

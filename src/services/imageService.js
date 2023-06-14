@@ -1,4 +1,3 @@
-import { redirect } from 'react-router-dom'
 import config from '../config.json'
 import http from './httpServices'
 
@@ -21,6 +20,11 @@ export async function get10DaysData() {
 export async function getPreviousScans() {
   
   return await http.get(`${config.apiEndpoint}predict/all-predictions/`)
+}
+
+export async function getBookmarks() {
+  
+  return await http.get(`${config.apiEndpoint}predict/get-bookmarks/`)
 }
 
 export async function uploadDicom(data){

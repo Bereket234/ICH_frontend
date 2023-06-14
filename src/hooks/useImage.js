@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useAuthContext } from './useAuthContext'
 import { imageUpload } from '../services/imageService'
 import { useImagesContext } from './useImageContext'
 import { useNavigate } from 'react-router'
@@ -29,7 +28,7 @@ export const useUploadImage = () => {
     .catch(e=> {
       console.log('error')
       setIsLoading(false)
-      setError("Please check your connection!")
+      setError("Please check your connection or select the right image!")
     })
     
     // console.log(res)

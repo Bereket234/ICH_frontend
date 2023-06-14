@@ -14,10 +14,10 @@ const hemorrhageData= [
     {type: "intraparenchymal", count: 8},  
     {type: "subarachnoid", count: 6},
 ]
-const totalCount= [
-    {type: "hemorrhage", count:50, color: "#0088FE"},
-    {type: "noHemorrhage", count: 20, color: "#00C49F"}
-]
+// const totalCount= [
+//     {type: "hemorrhage", count:50, color: "#0088FE"},
+//     {type: "noHemorrhage", count: 20, color: "#00C49F"}
+// ]
 
 const Dashboard = () => {
   const [data, setData]= useState([])
@@ -41,6 +41,7 @@ const Dashboard = () => {
       ]
       setTotalCount(temp)
     })
+    .catch(e=> console.log(e))
   }, [])
       
     return (  

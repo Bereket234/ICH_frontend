@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
-import { Box, Button, Container, Flex, Heading, Image, Text, background } from '@chakra-ui/react';
-import axios from 'axios'
-import { Link, Navigate, redirect, useNavigate } from 'react-router-dom';
+import { Box, Button, Container, Flex, Heading, Image, Text } from '@chakra-ui/react';
 import { useUploadImage } from '../hooks/useImage';
-import { useImagesContext } from '../hooks/useImageContext';
 
 const ImageUploadPage = () => {
   const {uploadImage, isLoading, error}= useUploadImage()
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
-  const {image}= useImagesContext()
-  const navigate= useNavigate()
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -107,6 +102,7 @@ const ImageUploadPage = () => {
         >
           Upload
         </Button>
+        {error && <Text color='red.400' fontSize='13'>{error}</Text>}
       </Box>
     </Container>
   );

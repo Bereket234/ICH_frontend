@@ -1,11 +1,9 @@
-import { useState } from "react";
-import { FormErrorMessage, Box, Button, VStack, FormControl, FormHelperText, FormLabel, Input, Stack, Text } from "@chakra-ui/react";
-import { Form, NavLink, redirect, Navigate } from "react-router-dom";
+import { Box, Button, VStack, Text } from "@chakra-ui/react";
+import { NavLink } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
 import InputField from "../components/common/InputField";
 import * as Yup from 'yup'
-import { Formik, Field } from "formik";
-// import { auth } from "../services/authService";
+import { Formik } from "formik";
 
 const Login = () => {
   const {login, error, isLoading} = useLogin()
@@ -19,7 +17,6 @@ const Login = () => {
     }
       
   }
-  console.log(isLoading)
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
@@ -61,15 +58,5 @@ const Login = () => {
   );
 };
 
-// export const saveUser= async ({request}) => {
-//   const res= await request.formData()
-//   const submission= {
-//     email: res.get('email'),
-//     password: res.get('password')
-//   }
-  
-//   await login(submission.email, submission.password)
-//   return null
-// }
 
 export default Login;
