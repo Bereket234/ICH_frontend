@@ -31,7 +31,7 @@ const UploadDicomImage = () => {
     // formData.append('image', selectedImage);
     const formData = new FormData();
     formData.append('image', selectedImage);
-    formData.append('patient', patient)
+    formData.append('patient', 2)
     console.log(formData)
     await uploadImage(formData)
     

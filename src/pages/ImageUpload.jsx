@@ -29,7 +29,7 @@ const ImageUploadPage = () => {
     // formData.append('image', selectedImage);
     const formData = new FormData();
     formData.append('image', selectedImage);
-    formData.append('patient', 2)
+    formData.append('patient', 3)
     await uploadImage(formData)
     
     // You can make an API call here to send the image to the server for processing
