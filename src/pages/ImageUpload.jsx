@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
-import { Box, Button, Container, Flex, Heading, Image, Text } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
+import { Box, Button, Container, Flex, Heading, Image, Text, FormControl, FormLabel, Select } from '@chakra-ui/react';
 import { useUploadImage } from '../hooks/useImage';
+import { getPatients } from '../services/patientService';
 
 const ImageUploadPage = () => {
   const {uploadImage, isLoading, error}= useUploadImage()
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+  const [patient, setPatient]= useState('')
+  const [scanData, setScanData]= useState([])
+
+  useEffect( () =>  {
+    getPatients()
+    .then(res=> {
+        console.log(res)
+        setScanData(res.data)
+    })
+    .catch(err=> console.log(err))
+    
+    }, [])
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -29,7 +42,7 @@ const ImageUploadPage = () => {
     // formData.append('image', selectedImage);
     const formData = new FormData();
     formData.append('image', selectedImage);
-    formData.append('patient', 3)
+    formData.append('patient', patient)
     await uploadImage(formData)
     
     // You can make an API call here to send the image to the server for processing
@@ -41,7 +54,14 @@ const ImageUploadPage = () => {
         <Heading as="h1" mb={5} textAlign="center">
           Image Upload
         </Heading>
-        
+        <FormControl mb={4}>
+          <FormLabel fontSize={18} color='blue.600' fontWeight='700'>Patient</FormLabel>
+            <Select placeholder='Select' required name="patinet" value={patient} onChange={e => setPatient(e.target.value) }>
+              {scanData.map(item => {
+                return <option value={item.id}>{item.name}</option>
+                })}
+            </Select>
+          </FormControl>
         <Flex
           borderWidth="2px"
           borderRadius="lg"

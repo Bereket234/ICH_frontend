@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Button, Container, Flex, Heading, Image, Text,FormControl, FormLabel, Select, } from '@chakra-ui/react';
 import { useDicomImage } from '../hooks/useDicomImage';
+import { getPatients } from '../services/patientService';
 
 const UploadDicomImage = () => {
   const {uploadImage, isLoading, error}= useDicomImage()
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [patient, setPatient]= useState('')
+  const [scanData, setScanData]= useState([])
+
+  useEffect( () =>  {
+    getPatients()
+    .then(res=> {
+        console.log(res)
+        setScanData(res.data)
+    })
+    .catch(err=> console.log(err))
+    
+    }, [])
 
 
   const handleImageUpload = (event) => {
@@ -31,7 +43,7 @@ const UploadDicomImage = () => {
     // formData.append('image', selectedImage);
     const formData = new FormData();
     formData.append('image', selectedImage);
-    formData.append('patient', 2)
+    formData.append('patient', patient)
     console.log(formData)
     await uploadImage(formData)
     
@@ -46,10 +58,9 @@ const UploadDicomImage = () => {
         <FormControl mb={4}>
           <FormLabel fontSize={18} color='blue.600' fontWeight='700'>Patient</FormLabel>
             <Select placeholder='Select' required name="patinet" value={patient} onChange={e => setPatient(e.target.value) }>
-                
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
+              {scanData.map(item => {
+                return <option value={item.id}>{item.name}</option>
+                })}
             </Select>
           </FormControl>
         <Flex
