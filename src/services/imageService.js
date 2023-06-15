@@ -32,3 +32,10 @@ export async function uploadDicom(data){
   console.log(data)
   return http.post(`${config.apiEndpoint}predict/dicom/`, data)
 }
+
+export async function bookmark(id){
+  return http.post(`${config.apiEndpoint}predict/bookmark/${id}/`)
+}
+export async function getZipData(){
+  return http.get(`${config.apiEndpoint}predict/get-zip-data/`)
+}

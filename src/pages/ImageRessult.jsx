@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Progress, Heading, Box, Image, Flex, Text } from "@chakra-ui/react";
+import { Heading, Box, Flex } from "@chakra-ui/react";
 // import brainImage from "./brain.jpg";
 import { useImagesContext } from "../hooks/useImageContext";
 import { useUploadImage } from "../hooks/useImage";
 import SingleScan from "../components/common/SingleScan";
 import ProgressBars from "../components/common/ProgressBars";
+import UserCard from "../components/common/UserCard";
 
 
 
@@ -12,11 +12,11 @@ const ImageResult = () => {
   const {image}= useImagesContext()
   const {isLoading}= useUploadImage()
   const hemorrhageTypes = [
-    { name: "Epidural", percentage: (image["epidural"] * 100) },
-    { name: "Subdural", percentage: (image["subdural"] * 100) },
-    { name: "Subarachnoid", percentage: (image["subarachnoid"] * 100) },
-    { name: "Intraventricular", percentage: (image["intraventricular"] * 100) },
-    { name: "Intraparenchymal", percentage: (image["intraparenchymal"] * 100) },
+    { name: "Epidural", percentage: (image["epidural"]) },
+    { name: "Subdural", percentage: (image["subdural"]) },
+    { name: "Subarachnoid", percentage: (image["subarachnoid"]) },
+    { name: "Intraventricular", percentage: (image["intraventricular"]) },
+    { name: "Intraparenchymal", percentage: (image["intraparenchymal"]) },
   ];
 
 
@@ -24,9 +24,11 @@ const ImageResult = () => {
     return(<Box>processing...</Box>)
   }
 
+  console.log("logged here" ,image)
   return (
     <Flex justifyContent='center' alignItems='center' flexDirection='column'>
       <Heading mb={4}>Prediction</Heading>
+      <UserCard image= {image}/>
       <SingleScan image= {image}/>
       <ProgressBars data= {hemorrhageTypes}/>
     </Flex>

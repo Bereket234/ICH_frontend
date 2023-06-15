@@ -1,21 +1,46 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Heading, Box, Flex, Button } from "@chakra-ui/react";
 import SingleScan from "../components/common/SingleScan";
-import { getPreviousScans } from "../services/imageService";
+import { getPreviousScans, getZipData } from "../services/imageService";
 import { DownloadIcon } from "@chakra-ui/icons";
+import { useAuthContext } from './../hooks/useAuthContext';
 
 const PreviousScans = () => {
 const [scanData, setScanData] = useState([]);
+const {user}= useAuthContext()
 const [file, setFile] = useState(null);
 const downloadLinkRef = useRef(null);
 const clickDownloadLink = useCallback(() => downloadLinkRef.current.click(), []);
 
-const handleDownload = () => {
-  fetch("https://dummyfileapi.com/api/download")
+const handleDownload = (e) => {
+    e.preventDefault()
+    fetch('http://localhost:8000/api/predict/get-zip-data/', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${user}`
+
+        },
+      })
     .then(response => response.blob())
     .then(blob => {
-      setFile(blob);
-      clickDownloadLink();
+        const url = window.URL.createObjectURL(
+            new Blob([blob]),
+          );
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute(
+            'download',
+            `FileName.pdf`,
+          );
+      
+          // Append to html link element page
+          document.body.appendChild(link);
+      
+          // Start download
+          link.click();
+      
+          // Clean up and remove the link
+          link.parentNode.removeChild(link);
     })
     .catch(e=> console.log(e))
 };
