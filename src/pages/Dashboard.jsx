@@ -6,6 +6,7 @@ import Piechart from '../components/common/Piechart';
 import Barchart from '../components/common/Barchart';
 import Linechart from '../components/common/Linechart';
 import { get10DaysData, getAllTimeData } from '../services/imageService';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const hemorrhageData= [
     {type: "subdural", count: 10},  
@@ -22,6 +23,7 @@ const hemorrhageData= [
 const Dashboard = () => {
   const [data, setData]= useState([])
   const [totalCount, setTotalCount]= useState([])
+  const {user}= useAuthContext()
 
 
   useEffect(()=> {
@@ -32,7 +34,7 @@ const Dashboard = () => {
     })
     .catch(err=> console.log(err))
 
-  },[])
+  },[user])
   useEffect(()=> {
     getAllTimeData()
     .then(res=>{
@@ -45,7 +47,7 @@ const Dashboard = () => {
       setTotalCount(temp)
     })
     .catch(e=> console.log(e))
-  }, [])
+  }, [user])
       
     return (  
         <>

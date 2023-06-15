@@ -1,5 +1,5 @@
 import { Box, Button, VStack, Text } from "@chakra-ui/react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
 import InputField from "../components/common/InputField";
 import * as Yup from 'yup'
@@ -7,13 +7,14 @@ import { Formik } from "formik";
 
 const Login = () => {
   const {login, error, isLoading} = useLogin()
+  const navigate= useNavigate()
 
   const handleSubmit = async (values, actions) => {
     
     const res= await login(values.email, values.password)
     if (res){
       actions.resetForm();
-      window.location='/dashboard' 
+      navigate('/dashboard')
     }
       
   }

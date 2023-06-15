@@ -39,3 +39,8 @@ export async function bookmark(id){
 export async function getZipData(){
   return http.get(`${config.apiEndpoint}predict/get-zip-data/`)
 }
+export async function getPatinetData(id){
+
+  return http.get(`${config.apiEndpoint}predict/patient/${id}/`)
+  
+}

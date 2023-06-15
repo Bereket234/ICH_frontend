@@ -2,7 +2,7 @@ import {
   BrowserRouter,
   Navigate, 
   Route, 
-  Routes
+  Routes,
 } from 'react-router-dom'
 
 import './App.css';
@@ -30,6 +30,7 @@ import { useAuthContext } from './hooks/useAuthContext';
 import UploadDicomImage from './pages/UploadDicomImage';
 import Bookmaks from './pages/Bookmaks';
 import { useImagesContext } from './hooks/useImageContext';
+import PatientDetails from './pages/PatientDetails';
 
 
 function App() {
@@ -45,7 +46,6 @@ function App() {
           <Route path='about' element= {<About/>}/>
           <Route path="login" element={user == null? <Login />: <Navigate to='/dashboard'/>}/>
           <Route path="register" element={!user? <Register />: <Navigate to='/dashboard'/>} />
-          
           <Route path= 'dashboard' element = {user? <DashboardLayout />: <Navigate to='/login'/>}>
             <Route index element= {user?  <Dashboard/>: <Navigate to='/login'/> } />
             <Route path="upload-dicom" element={user? <UploadDicomImage/>: <Navigate to='/login'/>} />
@@ -53,6 +53,7 @@ function App() {
             <Route path="register-patient" element={user? <RegisterPatient/>: <Navigate to='/login'/>} />
             <Route path="previous-scans" element={user? <PreviousScans/>: <Navigate to='/login'/>} />
             <Route path="patient-list" element={user? <PatientList/>: <Navigate to='/login'/>} />
+            <Route path="patient-list/:id" element={user? <PatientDetails/>: <Navigate to='/login'/>} />
             <Route path="result" element={user && image?<ImageResult />: <Navigate to='/login'/>} />
             <Route path="bookmarks" element={user?<Bookmaks />: <Navigate to='/login'/>} />
           </Route>

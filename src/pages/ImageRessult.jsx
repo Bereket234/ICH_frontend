@@ -26,7 +26,7 @@ const ImageResult = () => {
 
   console.log("logged here" ,image)
   return (
-    <Flex justifyContent='center' alignItems='center' flexDirection='column'>
+    <Flex w= "100%" justifyContent='center' alignItems='center' flexDirection='column'>
       <Heading mb={4}>Prediction</Heading>
       <UserCard image= {image}/>
       <SingleScan image= {image}/>

@@ -19,7 +19,7 @@ function Bookmaks(props) {
         <Box>
             <Heading mb={4}>Bookmarks</Heading>
             {scanData.map((item)=> {
-                return <SingleScan key={item.id} image= {{mask:item.mask, originalImage: item.originalImage, predictedImage: item.predictedImage}} /> 
+                return <SingleScan key={item.id} image= {item} /> 
             })}
         </Box>
     );

@@ -1,29 +1,15 @@
-import { StarIcon } from "@chakra-ui/icons";
+
 import { Box, Image, Badge, Text, Flex, Spacer, Icon } from "@chakra-ui/react";
-import { bookmark } from "../../services/imageService";
-import { useState } from "react";
+
+import Bookmark from "./Bookmark";
 
 export default function UserCard({image}) {
     const {patient}= image
   const { name, cardNumber, sex, age, phone, imageCount, description, registeredDate } = patient;
-  const [isLoading, setIsLoading]= useState(false)
-  const [isBookmarked, setIsBookmarked]= useState(image.isBookmarked)
+  
   console.log("logged here in card" ,image)
 
-  const handleClick= (e) => {
-    e.preventDefault()
-    setIsLoading(true)
-    bookmark(image.id)
-    .then(res=> {
-        setIsLoading(false)
-        setIsBookmarked(!isBookmarked)
-
-    })
-    .catch(e=> {
-        console.log(e)
-
-    })
-  }
+  
   return (
     <Box  borderWidth="1px" borderRadius="15" overflow="hidden" boxShadow="2xl" padding='30' w= '100%'>
       <Box position="relative" w='50%' margin='0 auto'>
@@ -37,8 +23,6 @@ export default function UserCard({image}) {
           <Text fontSize="2xl" fontWeight="semibold" mr={2}>
             {name}
           </Text>
-          <Icon onClick={handleClick} color={isBookmarked? "lightblue" : "gray"} _disabled={isLoading} cursor='pointer'  as={StarIcon} />
-
         </Flex>
         <Flex >
         <Box d="flex" alignItems="baseline">
