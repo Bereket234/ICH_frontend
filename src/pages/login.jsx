@@ -14,7 +14,7 @@ const Login = () => {
     const res= await login(values.email, values.password)
     if (res){
       actions.resetForm();
-      navigate('/dashboard')
+      
     }
       
   }

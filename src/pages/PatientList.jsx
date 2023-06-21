@@ -26,7 +26,7 @@ const PatientList = () => {
 
     return (
         <Box>
-            <Heading mb={4}>Previous Scans</Heading>
+            <Heading mb={4}>Patient List</Heading>
             <Table variant='striped'>
                 <Thead>
                     <Tr>

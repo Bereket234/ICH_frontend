@@ -34,7 +34,7 @@ const Dashboard = () => {
     })
     .catch(err=> console.log(err))
 
-  },[user])
+  },[])
   useEffect(()=> {
     getAllTimeData()
     .then(res=>{
@@ -47,7 +47,7 @@ const Dashboard = () => {
       setTotalCount(temp)
     })
     .catch(e=> console.log(e))
-  }, [user])
+  }, [])
       
     return (  
         <>
