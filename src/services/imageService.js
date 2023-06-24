@@ -44,3 +44,7 @@ export async function getPatinetData(id){
   return http.get(`${config.apiEndpoint}predict/patient/${id}/`)
   
 }
+
+export async function deleteImge(id){
+  return http.delete(`${config.apiEndpoint}predict/prediction/${id}/`)
+}

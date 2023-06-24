@@ -14,7 +14,8 @@ const renderCustomizedLabel = ({ type, cx, cy, midAngle, innerRadius, outerRadiu
       </text>
     );
   };
-const Piechart = ({totalCount}) => {
+  const Piechart = ({totalCount, nameKey}) => {
+  console.log(totalCount, nameKey)
     return (
         <Flex flexDirection='column' alignItems='center' justifyContent='center'>
         
@@ -23,7 +24,7 @@ const Piechart = ({totalCount}) => {
             <Pie
               data={totalCount}
               dataKey="count"
-              nameKey="hemorrhage"
+              nameKey={nameKey}
               cx="50%"
               cy="50%"
               outerRadius={100}
@@ -34,7 +35,7 @@ const Piechart = ({totalCount}) => {
                 <Cell key={entry.type} fill={entry.color} />
               ))}
             </Pie>
-            <Pie data={totalCount} dataKey="count" nameKey="hemorrhage" cx="50%" cy="50%" innerRadius={120} outerRadius={150} fill="#82ca9d">
+            <Pie data={totalCount} dataKey="count" nameKey={nameKey} cx="50%" cy="50%" innerRadius={120} outerRadius={150} fill="#82ca9d">
             {totalCount.map((entry, index) => (
                 <Cell key={entry.type} fill={entry.color} />
               ))}

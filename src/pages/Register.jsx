@@ -11,10 +11,10 @@ const Login = () => {
 
   const handleSubmit = async (values, actions) => {
     console.log(values)
-    fetch("http://localhost:8000/api/user/register/", {
-      method: "POST",
-      body: {values}
-    })
+    // fetch("http://localhost:8000/api/user/register/", {
+    //   method: "POST",
+    //   body: values
+    // })
     // const res= await signup(values)
     // if (res){
     //   actions.resetForm();
