@@ -28,7 +28,7 @@ const Sidebar = () => {
                 <ListItem>
                     <NavLink to="upload-png">
                         <ListIcon as={ArrowUpIcon} />
-                            Upload PNG image
+                            Upload JPG image
                     </NavLink>
                 </ListItem>
                 

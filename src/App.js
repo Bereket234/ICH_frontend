@@ -35,9 +35,10 @@ import PatientDetails from './pages/PatientDetails';
 
 function App() {
 
-  const {user} = useAuthContext()
+  const context = useAuthContext()
+  const {user} = context
+  console.log("the onctext", context)
   const {image} = useImagesContext()
-  console.log("hete", user)
   return (
       <BrowserRouter>
       <Routes>

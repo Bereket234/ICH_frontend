@@ -84,7 +84,7 @@ const Dashboard = () => {
                 
                 {hemorrhageData.map(data=> {
                   return (
-                    <Box position='relative' top= {10} w="30%" minW="300px" h="300px" m="1%">
+                    <Box key={data.type} position='relative' top= {10} w="30%" minW="300px" h="300px" m="1%">
                       <Piechart totalCount= {[{type: data.type, count:data.count, color: "#0088FE" }, {type: `no${data.type}`, count:Number((totalCount[0].count + totalCount[1].count) - data.count), color: "#00C49F" }] } nameKey={data.type}/>
                     </Box>
                     )
